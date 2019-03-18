@@ -1,0 +1,35 @@
+﻿@model IEnumerable<NoteAppMVC.Note>
+
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h1 style="display:inline-block">
+    Notes&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" class="btn btn-secondary" style="margin-bottom:10px" value="Create Note">
+    <form method="get" action="@Url.Action("Search", "Note")" class="form-inline" style="display:inline-block;font-size:inherit">
+        <input type="text" class="form-control" name="keyword" style="margin-bottom:10px" placeholder="Search" />
+        <button type="submit" class="btn btn-dark" style="margin-bottom:10px">Search</button>
+    </form>
+</h1>
+<hr />
+<div class="card-columns">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                @if (item.image != null)
+                {
+                    <img class="card-img-top" src="~/Images/@item.image" style="max-height:350px;max-width:240px"/>
+                }
+                <h5 class="card-title">
+                    @Html.DisplayFor(modelItem => item.title)
+                </h5>
+                <p class="card-text">
+                    @Html.DisplayFor(modelItem => item.content)
+                </p>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "card-links" }) | @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "card-links" })
+            </div>
+        </div>
+    }
+</div>

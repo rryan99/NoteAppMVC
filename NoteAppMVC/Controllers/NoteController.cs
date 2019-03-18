@@ -1,0 +1,84 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace NoteAppMVC.Controllers
+{
+    public class NoteController : Controller
+    {
+        //Dashboard
+        public ActionResult Dashboard()
+        {
+            using (NoteAppEntities ne = new NoteAppEntities())
+            {
+                if (Session["email"] == null)
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                else
+                {
+                    //var notes = ne.Notes.SqlQuery("SELECT * FROM dbo.notes WHERE email='" + Session["email"] + "'").ToList();
+                    var session = Session["email"].ToString();
+                    var notes = ne.Notes.Where(x => x.email == session).ToList();
+                    return View(notes);
+                }
+            }
+        }
+
+        //Edit
+        public ActionResult Edit(int id)
+        {
+            using (NoteAppEntities ne = new NoteAppEntities())
+            {
+                if (Session["email"] == null)
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                else
+                {
+                    Note note = ne.Notes.Find(id);
+                    return RedirectToAction("Edit", "Note");
+                }
+            }
+        }
+
+        //Delete
+        public ActionResult Delete(int id)
+        {
+            using (NoteAppEntities ne = new NoteAppEntities())
+            {
+                if (Session["email"] == null)
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                else
+                {
+                    Note note = ne.Notes.Find(id);
+                    ne.Notes.Remove(note);
+                    ne.SaveChanges();
+                    return RedirectToAction("Dashboard");
+                }
+            }
+        }
+
+        //Search
+        public ActionResult Search(String keyword)
+        {
+            using (NoteAppEntities ne = new NoteAppEntities())
+            {
+                if (Session["email"] == null)
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                else
+                {
+                    var session = Session["email"].ToString();
+                    var notes = ne.Notes.Where(x => x.email == session && x.title.Contains(keyword)).ToList();
+                    return View(notes);
+                }
+            }
+        }
+    }
+}

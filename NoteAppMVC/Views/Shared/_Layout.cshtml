@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Note App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="padding-bottom: 15px">
+        <a class="navbar-brand" href="#">Notes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navtoggle">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navtoggle">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="@Url.Action("Dashboard", "Note")">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-item nav-link" href="#">FAQ</a>
+                </li>
+            </ul>
+            <div class="nav navbar-nav ml-auto">
+                <a class="nav-item nav-link" href="@Url.Action("Logout", "User")">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container" style="padding-top:50px">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Note App</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

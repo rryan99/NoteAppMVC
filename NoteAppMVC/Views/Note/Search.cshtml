@@ -1,0 +1,30 @@
+﻿@model IEnumerable<NoteAppMVC.Note>
+
+@{
+    ViewBag.Title = "Search Results";
+}
+
+<h1>
+    Search Results&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" class="btn btn-dark" onclick="location.href='@Url.Action("Login", "User")'" value="⤺ Back to Dashboard" style="margin-bottom:10px">
+</h1>
+<hr>
+<div class="card-columns">
+    @if (Model.Count() == 0)
+    {
+        <span style="color:red">No notes found.</span>
+    }
+    @foreach (var item in Model)
+    {
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    @Html.DisplayFor(modelItem => item.title)
+                </h5>
+                <p class="card-text">
+                    @Html.DisplayFor(modelItem => item.content)
+                </p>
+            </div>
+        </div>
+    }
+</div>
