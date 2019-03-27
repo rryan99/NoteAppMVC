@@ -27,6 +27,24 @@ namespace NoteAppMVC.Controllers
             }
         }
 
+        //View
+        public ActionResult ViewNote(int id)
+        {
+            using (NoteAppEntities ne = new NoteAppEntities())
+            {
+                if (Session["email"] == null)
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                else
+                {
+                    Note note = ne.Notes.Find(id);
+                    ViewBag.noteDetails = ne.Notes.Where(x => x.id == id).ToList();
+                    return View(note);
+                }
+            }
+        }
+
         //Edit
         public ActionResult Edit(int id)
         {

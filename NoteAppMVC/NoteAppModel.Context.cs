@@ -27,5 +27,6 @@ namespace NoteAppMVC
     
         public virtual DbSet<Note> Notes { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Shared> Shareds { get; set; }
     }
 }

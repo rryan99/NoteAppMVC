@@ -28,7 +28,7 @@
                 <p class="card-text">
                     @Html.DisplayFor(modelItem => item.content)
                 </p>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "card-links" }) | @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "card-links" })
+                @Html.ActionLink("View", "ViewNote", new { id = item.id }, new { @class = "card-links" }) | @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "card-links" }) | @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "card-links" })
             </div>
         </div>
     }

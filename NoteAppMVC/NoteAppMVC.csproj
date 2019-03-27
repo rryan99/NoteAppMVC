@@ -159,6 +159,9 @@
       <DependentUpon>NoteAppModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared.cs">
+      <DependentUpon>NoteAppModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>NoteAppModel.tt</DependentUpon>
     </Compile>
@@ -224,6 +227,7 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Note\Dashboard.cshtml" />
     <Content Include="Views\Note\Search.cshtml" />
+    <Content Include="Views\Note\ViewNote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
