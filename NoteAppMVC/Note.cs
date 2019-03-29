@@ -16,12 +16,6 @@ namespace NoteAppMVC
 
     public partial class Note
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Note()
-        {
-            this.Shareds = new HashSet<Shared>();
-        }
-
         public int id { get; set; }
         [DisplayName("Email")]
         [Required(ErrorMessage = "Email is required.")]
@@ -34,8 +28,6 @@ namespace NoteAppMVC
         [Required(ErrorMessage = "Content is required.")]
         public string content { get; set; }
         public string image { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Shared> Shareds { get; set; }
+        public bool shared { get; set; }
     }
 }

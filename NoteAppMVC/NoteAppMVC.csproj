@@ -159,9 +159,6 @@
       <DependentUpon>NoteAppModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shared.cs">
-      <DependentUpon>NoteAppModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>NoteAppModel.tt</DependentUpon>
     </Compile>

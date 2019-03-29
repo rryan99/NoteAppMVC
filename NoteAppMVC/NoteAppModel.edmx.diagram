@@ -7,8 +7,6 @@
       <Diagram DiagramId="2393ade63d0b4a289d9b48aaefcdda1e" Name="Diagram1">
         <EntityTypeShape EntityType="NoteAppModel.Note" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="NoteAppModel.User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="NoteAppModel.Shared" Width="1.5" PointX="3" PointY="4" />
-        <AssociationConnector Association="NoteAppModel.FK_Shared_Notes" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

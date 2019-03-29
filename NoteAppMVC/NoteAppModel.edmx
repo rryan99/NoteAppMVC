@@ -14,13 +14,7 @@
           <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="content" Type="varchar(max)" Nullable="false" />
           <Property Name="image" Type="varchar(max)" />
-        </EntityType>
-        <EntityType Name="Shared">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="NoteId" Type="int" Nullable="false" />
+          <Property Name="shared" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -31,26 +25,9 @@
           <Property Name="fname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="lname" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Shared_Notes">
-          <End Role="Notes" Type="Self.Notes" Multiplicity="1" />
-          <End Role="Shared" Type="Self.Shared" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Notes">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Shared">
-              <PropertyRef Name="NoteId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="NoteAppModelStoreContainer">
           <EntitySet Name="Notes" EntityType="Self.Notes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Shared" EntityType="Self.Shared" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Shared_Notes" Association="Self.FK_Shared_Notes">
-            <End Role="Notes" EntitySet="Notes" />
-            <End Role="Shared" EntitySet="Shared" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -65,7 +42,7 @@
           <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Shareds" Relationship="NoteAppModel.FK_Shared_Notes" FromRole="Note" ToRole="Shared" />
+          <Property Name="shared" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -79,32 +56,7 @@
         <EntityContainer Name="NoteAppEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Notes" EntityType="Self.Note" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="Shareds" EntityType="NoteAppModel.Shared" />
-          <AssociationSet Name="FK_Shared_Notes" Association="NoteAppModel.FK_Shared_Notes">
-            <End Role="Note" EntitySet="Notes" />
-            <End Role="Shared" EntitySet="Shareds" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Shared">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="NoteId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Note" Relationship="NoteAppModel.FK_Shared_Notes" FromRole="Shared" ToRole="Note" />
-        </EntityType>
-        <Association Name="FK_Shared_Notes">
-          <End Type="NoteAppModel.Note" Role="Note" Multiplicity="1" />
-          <End Type="NoteAppModel.Shared" Role="Shared" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Note">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Shared">
-              <PropertyRef Name="NoteId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -114,6 +66,7 @@
           <EntitySetMapping Name="Notes">
             <EntityTypeMapping TypeName="NoteAppModel.Note">
               <MappingFragment StoreEntitySet="Notes">
+                <ScalarProperty Name="shared" ColumnName="shared" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="title" ColumnName="title" />
@@ -129,14 +82,6 @@
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="fname" ColumnName="fname" />
                 <ScalarProperty Name="lname" ColumnName="lname" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Shareds">
-            <EntityTypeMapping TypeName="NoteAppModel.Shared">
-              <MappingFragment StoreEntitySet="Shared">
-                <ScalarProperty Name="NoteId" ColumnName="NoteId" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

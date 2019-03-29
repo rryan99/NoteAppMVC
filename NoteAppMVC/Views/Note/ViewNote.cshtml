@@ -3,16 +3,49 @@
 @{
     ViewBag.Title = "View Note";
 }
-
-<h1 style="display:inline-block">
-    View Note
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="button" class="btn btn-dark" onclick="location.href='@Url.Action("Dashboard", "Note")'" value="⤺ Back to Dashboard" style="margin-bottom:10px">
-    &nbsp;
-    <input type="button" class="btn btn-secondary" style="margin-bottom:10px" value="Share Note">
-</h1>
-<hr />
-<div>
+@if (HttpContext.Current.Session["email"] != null)
+{
+    if (HttpContext.Current.Session["email"].ToString() == Model.email)
+    {
+        <h1 style="display:inline-block">
+            View Note
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" class="btn btn-dark" onclick="location.href='@Url.Action("Dashboard", "Note")'" value="⤺ Back to Dashboard" style="margin-bottom:10px">
+            &nbsp;
+            @if (Model.shared == true)
+            {
+                <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("ToggleSharing", "Note", new { id = Model.id })'" style="margin-bottom:10px">Sharing: On</button>
+            }
+            @if (Model.shared == false)
+            {
+                <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("ToggleSharing", "Note", new { id = Model.id })'" style="margin-bottom:10px">Sharing: Off</button>
+            }
+        </h1>
+    }
+    else if (HttpContext.Current.Session["email"].ToString() != Model.email)
+    {
+        <h1 style="display:inline-block">
+            View Note
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" class="btn btn-dark" onclick="location.href='@Url.Action("Dashboard", "Note")'" value="⤺ Back to Dashboard" style="margin-bottom:10px">
+            &nbsp;
+        </h1>
+    }
+}
+else
+{
+    {
+        Layout = "";
+    }
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <div class="container">
+        <h1 style="padding-top:105px">View Note</h1>
+    </div>
+}
+<div class="container">
+    <hr />
     <h4>
         @Html.DisplayFor(model => model.title)
     </h4>
