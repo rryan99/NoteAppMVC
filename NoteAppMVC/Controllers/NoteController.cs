@@ -33,8 +33,30 @@ namespace NoteAppMVC.Controllers
             using (NoteAppEntities ne = new NoteAppEntities())
             {
                 Note note = ne.Notes.Find(id);
-                ViewBag.noteDetails = ne.Notes.Where(x => x.id == id).ToList();
-                return View(note);
+                if (note.shared == true)
+                {
+                    ViewBag.noteDetails = ne.Notes.Where(x => x.id == id).ToList();
+                    return View(note);
+                }
+                else
+                {
+                    if (Session["email"] != null)
+                    {
+                        if (Session["email"].ToString() == note.email)
+                        {
+                            ViewBag.noteDetails = ne.Notes.Where(x => x.id == id).ToList();
+                            return View(note);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Dashboard", "Note");
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("Login", "User");
+                    }
+                }
             }
         }
 
