@@ -6,7 +6,9 @@
 
 <h1 style="display:inline-block">
     Notes&nbsp;&nbsp;&nbsp;&nbsp;
-    <input type="button" class="btn btn-secondary" style="margin-bottom:10px" value="Create Note">
+    <a href='@Url.Action("Create", "Note")'>
+        <input type="button" class="btn btn-secondary" style="margin-bottom:10px" value="Create Note" />
+    </a>    
     <form method="get" action="@Url.Action("Search", "Note")" class="form-inline" style="display:inline-block;font-size:inherit">
         <input type="text" class="form-control" name="keyword" style="margin-bottom:10px" placeholder="Search" />
         <button type="submit" class="btn btn-dark" style="margin-bottom:10px">Search</button>
