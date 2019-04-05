@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -122,6 +123,8 @@ namespace NoteAppMVC.Controllers
                     Note note = ne.Notes.Find(id);
                     ne.Notes.Remove(note);
                     ne.SaveChanges();
+                    String imagePath = Request.MapPath(note.image);
+                    System.IO.File.Delete(imagePath);
                     return RedirectToAction("Dashboard");
                 }
             }
@@ -170,6 +173,14 @@ namespace NoteAppMVC.Controllers
                 using (NoteAppEntities ne = new NoteAppEntities())
                 {
                     note.email = Session["email"].ToString();
+
+                    String fileName = Path.GetFileNameWithoutExtension(note.ImageFile.FileName);
+                    String fileExt = Path.GetExtension(note.ImageFile.FileName);
+                    fileName = fileName + DateTime.Now.ToString("ddmmyyyyhhmmss") + fileExt;
+                    note.image = "~/Images/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Images"), fileName);
+                    note.ImageFile.SaveAs(fileName);
+
                     ne.Notes.Add(note);
                     ne.SaveChanges();
                 }

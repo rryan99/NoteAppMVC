@@ -13,6 +13,7 @@ namespace NoteAppMVC
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
 
     public partial class Note
     {
@@ -28,7 +29,10 @@ namespace NoteAppMVC
         [Required(ErrorMessage = "Content is required.")]
         [DataType(DataType.MultilineText)]
         public string content { get; set; }
+        [DisplayName("Upload Image")]
         public string image { get; set; }
         public bool shared { get; set; }
+
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

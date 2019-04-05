@@ -7,7 +7,7 @@
 <h1>Create</h1>
 <hr />
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Note", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -32,8 +32,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="image" name="ImageFile">
+                    <label class="custom-file-label" for="image">Choose file</label>
+                    <script>
+                        $(".custom-file-input").on("change", function () {
+                            var fileName = $(this).val().split("\\").pop();
+                            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                        });
+                    </script>
+                </div>
             </div>
         </div>
 
@@ -46,7 +54,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Dashboard")
+    @Html.ActionLink("Back to Dashboard", "Dashboard")
 </div>
 
 @section Scripts {
