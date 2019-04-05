@@ -80,6 +80,7 @@ namespace NoteAppMVC.Controllers
             }
         }
 
+        //Edit
         public ActionResult Edit(int id)
         {
             using (NoteAppEntities ne = new NoteAppEntities())
@@ -87,7 +88,7 @@ namespace NoteAppMVC.Controllers
                 return View(ne.Notes.Where(x => x.id == id).FirstOrDefault());
             }
         }
-        //Edit
+
         [HttpPost]
         public ActionResult Edit(int id, Note note)
         {
@@ -143,6 +144,8 @@ namespace NoteAppMVC.Controllers
                 }
             }
         }
+
+        //Create
         public ActionResult Create()
         {
             if (Session["email"] == null)
