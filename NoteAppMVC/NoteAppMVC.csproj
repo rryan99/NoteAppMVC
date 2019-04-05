@@ -225,6 +225,9 @@
     <Content Include="Views\Note\Dashboard.cshtml" />
     <Content Include="Views\Note\Search.cshtml" />
     <Content Include="Views\Note\ViewNote.cshtml" />
+    <Content Include="Views\Home\FAQ.cshtml" />
+    <Content Include="Views\Note\Create.cshtml" />
+    <Content Include="Views\Note\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />

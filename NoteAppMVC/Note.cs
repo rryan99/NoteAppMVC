@@ -26,6 +26,7 @@ namespace NoteAppMVC
         public string title { get; set; }
         [DisplayName("Content")]
         [Required(ErrorMessage = "Content is required.")]
+        [DataType(DataType.MultilineText)]
         public string content { get; set; }
         public string image { get; set; }
         public bool shared { get; set; }

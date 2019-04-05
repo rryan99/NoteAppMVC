@@ -80,8 +80,16 @@ namespace NoteAppMVC.Controllers
             }
         }
 
-        //Edit
         public ActionResult Edit(int id)
+        {
+            using (NoteAppEntities ne = new NoteAppEntities())
+            {
+                return View(ne.Notes.Where(x => x.id == id).FirstOrDefault());
+            }
+        }
+        //Edit
+        [HttpPost]
+        public ActionResult Edit(int id, Note note)
         {
             using (NoteAppEntities ne = new NoteAppEntities())
             {
@@ -91,8 +99,10 @@ namespace NoteAppMVC.Controllers
                 }
                 else
                 {
-                    Note note = ne.Notes.Find(id);
-                    return RedirectToAction("Edit", "Note");
+                    ne.Entry(note).State = System.Data.Entity.EntityState.Modified;
+                    note.email = Session["email"].ToString();
+                    ne.SaveChanges();
+                    return RedirectToAction("Dashboard", "Note");
                 }
             }
         }
@@ -133,5 +143,37 @@ namespace NoteAppMVC.Controllers
                 }
             }
         }
+        public ActionResult Create()
+        {
+            if (Session["email"] == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Create(Note note)
+        {
+            if (Session["email"] == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+            else
+            {
+                using (NoteAppEntities ne = new NoteAppEntities())
+                {
+                    note.email = Session["email"].ToString();
+                    ne.Notes.Add(note);
+                    ne.SaveChanges();
+                }
+                return RedirectToAction("Dashboard");
+            }       
+            
+        }
+        
     }
 }
