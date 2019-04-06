@@ -33,7 +33,6 @@ namespace NoteAppMVC
         public string image { get; set; }
         public bool shared { get; set; }
 
-        [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.jpeg)$", ErrorMessage = "Only images are allowed.")]
         public HttpPostedFileBase ImageFile { get; set; }
     }
 }

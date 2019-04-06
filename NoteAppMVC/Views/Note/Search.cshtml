@@ -18,12 +18,19 @@
     {
         <div class="card">
             <div class="card-body">
+                @if (item.image != null)
+                {
+                    <p>
+                        <img class="card-img-top rounded" src="@Url.Content(item.image)" style="max-height:350px;max-width:240px" />
+                    </p>
+                }
                 <h5 class="card-title">
                     @Html.DisplayFor(modelItem => item.title)
                 </h5>
                 <p class="card-text">
                     @Html.DisplayFor(modelItem => item.content)
                 </p>
+                @Html.ActionLink("View", "ViewNote", new { id = item.id }, new { @class = "card-links" }) | @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "card-links" }) | @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "card-links" })
             </div>
         </div>
     }

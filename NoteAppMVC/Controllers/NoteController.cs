@@ -184,12 +184,15 @@ namespace NoteAppMVC.Controllers
                 {
                     note.email = Session["email"].ToString();
 
-                    String fileName = Path.GetFileNameWithoutExtension(note.ImageFile.FileName);
-                    String fileExt = Path.GetExtension(note.ImageFile.FileName);
-                    fileName = fileName + DateTime.Now.ToString("ddmmyyyyhhmmss") + fileExt;
-                    note.image = "~/Images/" + fileName;
-                    fileName = Path.Combine(Server.MapPath("~/Images"), fileName);
-                    note.ImageFile.SaveAs(fileName);
+                    if (note.ImageFile != null)
+                    {
+                        String fileName = Path.GetFileNameWithoutExtension(note.ImageFile.FileName);
+                        String fileExt = Path.GetExtension(note.ImageFile.FileName);
+                        fileName = fileName + DateTime.Now.ToString("ddmmyyyyhhmmss") + fileExt;
+                        note.image = "~/Images/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/Images"), fileName);
+                        note.ImageFile.SaveAs(fileName);
+                    }
 
                     ne.Notes.Add(note);
                     ne.SaveChanges();
