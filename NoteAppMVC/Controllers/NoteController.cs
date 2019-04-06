@@ -86,7 +86,14 @@ namespace NoteAppMVC.Controllers
         {
             using (NoteAppEntities ne = new NoteAppEntities())
             {
-                return View(ne.Notes.Where(x => x.id == id).FirstOrDefault());
+                if (Session["email"] == null)
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                else
+                {
+                    return View(ne.Notes.Where(x => x.id == id).FirstOrDefault());
+                }
             }
         }
 
@@ -123,8 +130,11 @@ namespace NoteAppMVC.Controllers
                     Note note = ne.Notes.Find(id);
                     ne.Notes.Remove(note);
                     ne.SaveChanges();
-                    String imagePath = Request.MapPath(note.image);
-                    System.IO.File.Delete(imagePath);
+                    if (note.image != null)
+                    {
+                        String imagePath = Request.MapPath(note.image);
+                        System.IO.File.Delete(imagePath);
+                    }
                     return RedirectToAction("Dashboard");
                 }
             }

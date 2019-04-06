@@ -56,7 +56,7 @@ else
         @if (Model.image != null)
         {
             <dd>
-                <img src="~/Images/@Url.Content(Model.image)" style="max-height:350px;max-width:240px" />
+                <img src="@Url.Content(Model.image)" class="rounded" style="max-height:350px;max-width:240px" />
             </dd>
         }
     </dl>

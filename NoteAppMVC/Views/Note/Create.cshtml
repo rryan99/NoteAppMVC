@@ -33,8 +33,8 @@
             @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="image" name="ImageFile">
-                    <label class="custom-file-label" for="image">Choose file</label>
+                    <input type="file" class="custom-file-input" id="image" name="ImageFile" accept=".png, .jpg, .jpeg">
+                    <label class="custom-file-label" for="image">Choose file (only png, jpg, jpeg)</label>
                     <script>
                         $(".custom-file-input").on("change", function () {
                             var fileName = $(this).val().split("\\").pop();
