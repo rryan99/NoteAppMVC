@@ -108,7 +108,18 @@ namespace NoteAppMVC.Controllers
                 }
                 else
                 {
-                    ne.Entry(note).State = System.Data.Entity.EntityState.Modified;
+                    if (note.image != null)
+                    {
+                        String fileName = Path.GetFileNameWithoutExtension(note.ImageFile.FileName);
+                        String fileExt = Path.GetExtension(note.ImageFile.FileName);
+                        fileName = fileName + DateTime.Now.ToString("ddmmyyyyhhmmss") + fileExt;
+                        note.image = "~/Images/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/Images"), fileName);
+                        note.ImageFile.SaveAs(fileName);
+                    }
+                    ne.Notes.Attach(note);
+                    ne.Entry(note).Property(x => x.title).IsModified = true;
+                    ne.Entry(note).Property(x => x.content).IsModified = true;
                     note.email = Session["email"].ToString();
                     ne.SaveChanges();
                     return RedirectToAction("Dashboard", "Note");
